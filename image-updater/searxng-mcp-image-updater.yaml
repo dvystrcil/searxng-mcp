@@ -1,0 +1,21 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: searxng-mcp-iu
+spec:
+  namespace: argocd
+  applicationRefs:
+  - namePattern: searxng-mcp
+    images:
+    - alias: searxng-mcp
+      imageName: isokoliuk/mcp-searxng
+      commonUpdateSettings:
+        allowTags: regexp:^[0-9]+\.[0-9]+\.[0-9]+$
+        updateStrategy: semver
+        forceUpdate: false
+    writeBackConfig:
+      method: git
+      gitConfig:
+        repository: https://github.com/dvystrcil/searxng-mcp.git
+        branch: main
+        writeBackTarget: kustomization:/overlays
