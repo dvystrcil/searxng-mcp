@@ -26,6 +26,13 @@ spec:
         ports:
         - containerPort: 3000
           name: http
+        env:
+        - name: SEARXNG_URL
+          value: http://searxng.searxng.svc.cluster.local
+        - name: MCP_HTTP_PORT
+          value: "3000"
+        - name: MCP_HTTP_HOST
+          value: 0.0.0.0
         resources:
           requests:
             memory: 256Mi
@@ -42,6 +49,18 @@ spec:
           capabilities:
             drop:
             - ALL
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 30
         volumeMounts:
         - name: tmp
           mountPath: /tmp
