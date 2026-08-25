@@ -2,4 +2,4 @@ resources:
 - ../base
 images:
 - name: isokoliuk/mcp-searxng
-  newTag: 2.0.0
+  newTag: 2.1.0
