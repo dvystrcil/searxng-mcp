@@ -3,7 +3,6 @@ kind: ImageUpdater
 metadata:
   name: searxng-mcp-iu
 spec:
-  namespace: argocd
   applicationRefs:
   - namePattern: searxng-mcp
     images:
