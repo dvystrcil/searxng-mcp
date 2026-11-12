@@ -36,7 +36,9 @@ spec:
         resources:
           requests:
             memory: 256Mi
-            cpu: 100m
+            # 7d peak 6m (Prometheus, 2026-11-12). Was 100m, the most expensive
+            # idle tenant on node-02, which needs ztunnel surge room (homelab#2137).
+            cpu: 25m
           limits:
             memory: 512Mi
             cpu: 500m
